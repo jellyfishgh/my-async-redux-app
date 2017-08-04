@@ -1,10 +1,12 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
-import {history} from 'react-router-dom'
+import { connect } from 'react-redux'
+import { Route } from 'react-router-dom'
 
 import Explore from '../components/Explore'
-import {resetErrorMessage} from '../store/action'
+import resetErrorMessage from '../store/action/resetErrorMessage'
+import { history } from './index'
+import routes from '../routes'
 
 class Home extends Component {
   static propTypes = {
@@ -16,32 +18,31 @@ class Home extends Component {
     children: PropTypes.node
   }
 
-  handleDismissClick(e) {
+  handleDismissClick = e => {
     e.preventDefault()
-    this
-      .props
-      .resetErrorMessage()
+    this.props.resetErrorMessage()
   }
   handleChange = nextValue => {
     history.push(`/${nextValue}`)
   }
   render() {
-    const {children, errorMessage, inputValue} = this.props
-    const {handleDismissClick, handleChange} = this
+    const { errorMessage, inputValue } = this.props
+    const { handleDismissClick, handleChange } = this
     return (
       <div className="page">
-        <Explore value={inputValue} onChange={handleChange}/>
-        <hr/> {errorMessage && <p style={{
-          backgroundColor: '#e99',
-          padding: 10
-        }}>
-          <b>{errorMessage}</b>
-          {' '}
-          <button onClick={handleDismissClick}>
-            Dismiss
-          </button>
-        </p>}
-        {children}
+        <Explore value={inputValue} onChange={handleChange} />
+        <hr />{' '}
+        {errorMessage &&
+          <p
+            style={{
+              backgroundColor: '#e99',
+              padding: 10
+            }}
+          >
+            <b>{errorMessage}</b>{' '}
+            <button onClick={handleDismissClick}>Dismiss</button>
+          </p>}
+        {routes.map(route => <Route key={route.path} {...route} />)}
       </div>
     )
   }
@@ -49,10 +50,7 @@ class Home extends Component {
 
 const mapStateToProps = (state, ownProps) => ({
   errorMessage: state.errorMessage,
-  inputValue: ownProps
-    .location
-    .pathname
-    .substring(1)
+  inputValue: ownProps.location.pathname.substring(1)
 })
 
-export default connect(mapStateToProps, {resetErrorMessage})(Home)
+export default connect(mapStateToProps, { resetErrorMessage })(Home)

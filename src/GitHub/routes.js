@@ -1,12 +1,14 @@
 import RepoPage from './containers/RepoPage'
 import UserPage from './containers/UserPage'
 
-export default[
+export default [
   {
-    path : '/:login/:name',
-    component : RepoPage
-  }, {
-    path : '/:login',
-    component : UserPage
+    path: '/:login/:name',
+    component: RepoPage
+  },
+  {
+    path: '/:login',
+    component: UserPage,
+    exact: true
   }
 ]
