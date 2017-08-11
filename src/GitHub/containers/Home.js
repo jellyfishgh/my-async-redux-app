@@ -13,9 +13,7 @@ class Home extends Component {
     // Injected by React Redux
     errorMessage: PropTypes.string,
     resetErrorMessage: PropTypes.func.isRequired,
-    inputValue: PropTypes.string.isRequired,
-    // Injected by React Router
-    children: PropTypes.node
+    inputValue: PropTypes.string.isRequired
   }
 
   handleDismissClick = e => {
