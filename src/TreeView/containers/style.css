@@ -1,0 +1,10 @@
+ul,
+li {
+  list-style: none;
+}
+
+button {
+  border: none;
+  color: 'lightgray';
+  background-color: transparent;
+}

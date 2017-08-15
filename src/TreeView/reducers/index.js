@@ -30,19 +30,18 @@ const node = (state, { type, nodeId, childId }) => {
     case REMOVE_CHILD:
       return {
         ...state,
-        childIds: childIds(state.childids, { type, childId })
+        childIds: childIds(state.childIds, { type, childId })
       }
     default:
       return state
   }
 }
 
-const getAllDescendantIds = (state, nodeId) => {
+const getAllDescendantIds = (state, nodeId) =>
   state[nodeId].childIds.reduce(
     (acc, childId) => [...acc, childId, ...getAllDescendantIds(state, childId)],
     []
   )
-}
 
 const deleteMany = (state, ids) => {
   state = {
